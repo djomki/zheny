@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>poziv na sud</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff5f9e, #ffc1cc);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+      }
+
+      .card {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        max-width: 360px;
+        z-index: 2;
+      }
+
+      h1 {
+        color: #e91e63;
+      }
+
+      p {
+        font-size: 18px;
+        color: #444;
+      }
+
+      .buttons {
+        margin-top: 25px;
+        position: relative;
+        height: 120px;
+      }
+
+      button {
+        padding: 15px 25px;
+        font-size: 18px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        position: absolute;
+        transition: transform 0.4s ease;
+      }
+
+      #yes {
+        background: #e91e63;
+        color: white;
+        left: 50%;
+        transform: translateX(-50%) scale(1);
+      }
+
+      #no {
+        background: #ccc;
+        color: #333;
+        left: 50%;
+        top: 60px;
+        transform: translateX(-50%);
+      }
+
+      #answer {
+        display: none;
+        margin-top: 20px;
+        font-size: 22px;
+        color: #e91e63;
+        font-weight: bold;
+      }
+
+      .heart {
+        position: absolute;
+        color: #fff;
+        font-size: 20px;
+        animation: fall 5s linear infinite;
+        pointer-events: none;
+      }
+
+      @keyframes fall {
+        from {
+          transform: translateY(-10vh);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(110vh);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <h1>pitanjce</h1>
+      <p>
+        da li bi bila moj dejt za🥺👉🏻👈🏻<br />
+        <strong>14. februar 😳</strong>
+      </p>
+
+      <div class="buttons">
+        <button id="yes">logy</button>
+        <button id="no">mrzim te</button>
+      </div>
+
+      <div id="answer">ne zaboravi kitu</div>
+    </div>
+
+    <audio autoplay loop>
+      <source
+        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <script>
+      const yesBtn = document.getElementById("yes");
+      const noBtn = document.getElementById("no");
+      const answer = document.getElementById("answer");
+
+      let scale = 1;
+
+      noBtn.addEventListener("click", () => {
+        scale += 0.4;
+
+        if (scale < 3) {
+          yesBtn.style.transform = `translateX(-50%) scale(${scale})`;
+        } else {
+          yesBtn.style.position = "fixed";
+          yesBtn.style.left = "50%";
+          yesBtn.style.top = "50%";
+          yesBtn.style.transform = `translate(-50%, -50%) scale(${scale})`;
+          yesBtn.style.zIndex = "9999";
+        }
+      });
+
+      yesBtn.addEventListener("click", () => {
+        answer.style.display = "block";
+        yesBtn.innerText = "naulji se";
+      });
+
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 15 + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+      }
+
+      setInterval(createHeart, 300);
+    </script>
+  </body>
+</html>
